@@ -13,7 +13,7 @@ namespace Hotel.API.Profiles
             // READ
             CreateMap<Room, RoomReadDto>();
             // UPDATE
-            CreateMap<RoomUpdateDto, RoomUpdateDto>();
+            CreateMap<RoomUpdateDto, Room>();
             CreateMap<Room, RoomUpdateDto>();
         }
     }
