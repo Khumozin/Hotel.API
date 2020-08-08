@@ -60,7 +60,7 @@ namespace Hotel.API.Controllers
         }
 
         // PUT api/systemconfigs/{id}
-        [HttpPut]
+        [HttpPut("{id}")]
         public ActionResult UpdateSystemConfig(Guid id, SystemConfigUpdateDto systemConfig)
         {
             var systemConfigFromRepo = _repository.GetSystemConfigByID(id);
