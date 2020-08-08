@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Hotel.API.Models
 {
-    public class SystemConfig
+    public class SystemConfigReadDto
     {
-        [Key]
         public Guid ID { get; set; }
 
         [Required]
