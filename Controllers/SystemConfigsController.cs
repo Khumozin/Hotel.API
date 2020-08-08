@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AutoMapper;
 using Hotel.API.Data;
 using Hotel.API.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -13,24 +14,26 @@ namespace Hotel.API.Controllers
     public class SystemConfigsController : ControllerBase
     {
         private readonly ISystemConfig _repository;
+        private readonly IMapper _mapper;
 
-        public SystemConfigsController(ISystemConfig repository)
+        public SystemConfigsController(ISystemConfig repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         // GET api/systemconfigs
         [HttpGet]
-        public ActionResult<IEnumerable<SystemConfig>> GetAllSystemConfigs()
+        public ActionResult<IEnumerable<SystemConfigReadDto>> GetAllSystemConfigs()
         {
             var systemConfigs = _repository.GetAllSystemConfigs();
 
-            return Ok(systemConfigs);
+            return Ok(_mapper.Map<IEnumerable<SystemConfigReadDto>>(systemConfigs));
         }
 
         // GET api/systemconfigs/{id}
         [HttpGet("{id}", Name = "GetSystemConfigByID")]
-        public ActionResult<SystemConfig> GetSystemConfigByID(Guid id)
+        public ActionResult<SystemConfigReadDto> GetSystemConfigByID(Guid id)
         {
             var systemConfig = _repository.GetSystemConfigByID(id);
 
@@ -39,22 +42,26 @@ namespace Hotel.API.Controllers
                 return NotFound();
             }
 
-            return Ok(systemConfig);
+            return Ok(_mapper.Map<SystemConfigReadDto>(systemConfig));
         }
 
         // POST api/systemconfigs
         [HttpPost]
-        public ActionResult<SystemConfig> CreateSystemConfig(SystemConfig systemConfig)
+        public ActionResult<SystemConfigReadDto> CreateSystemConfig(SystemConfigCreateDto systemConfig)
         {
-            _repository.CreateSystemConfig(systemConfig);
+            var systemConfigModel = _mapper.Map<SystemConfig>(systemConfig);
+
+            _repository.CreateSystemConfig(systemConfigModel);
             _repository.SaveChanges();
 
-            return CreatedAtRoute(nameof(GetSystemConfigByID), new { ID = systemConfig.ID }, systemConfig);
+            var systemConfigReadDto = _mapper.Map<SystemConfigReadDto>(systemConfigModel);
+
+            return CreatedAtRoute(nameof(GetSystemConfigByID), new { ID = systemConfigReadDto.ID }, systemConfigReadDto);
         }
 
         // PUT api/systemconfigs/{id}
         [HttpPut]
-        public ActionResult UpdateSystemConfig(Guid id, SystemConfig systemConfig)
+        public ActionResult UpdateSystemConfig(Guid id, SystemConfigUpdateDto systemConfig)
         {
             var systemConfigFromRepo = _repository.GetSystemConfigByID(id);
 
@@ -63,7 +70,9 @@ namespace Hotel.API.Controllers
                 return NotFound();
             }
 
-            _repository.UpdateSystemConfig(systemConfig);
+            _mapper.Map(systemConfig, systemConfigFromRepo);
+
+            _repository.UpdateSystemConfig(systemConfigFromRepo);
             _repository.SaveChanges();
 
             return NoContent();

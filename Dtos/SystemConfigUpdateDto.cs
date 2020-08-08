@@ -3,11 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Hotel.API.Models
 {
-    public class SystemConfig
+    public class SystemConfigUpdateDto
     {
-        [Key]
-        public Guid ID { get; set; }
-
         [Required]
         [MaxLength(255)]
         public string AppName { get; set; }
