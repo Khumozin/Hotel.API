@@ -58,3 +58,7 @@ C:\Develop\.NetCore\Hotel.API\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcorea
 C:\Develop\.NetCore\Hotel.API\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Develop\.NetCore\Hotel.API\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Develop\.NetCore\Hotel.API\obj\Debug\netcoreapp3.1\Hotel.API.csproj.CopyComplete
+C:\Develop\.NetCore\Hotel.API\bin\Debug\netcoreapp3.1\MailKit.dll
+C:\Develop\.NetCore\Hotel.API\bin\Debug\netcoreapp3.1\MimeKit.dll
+C:\Develop\.NetCore\Hotel.API\bin\Debug\netcoreapp3.1\NETCore.MailKit.dll
+C:\Develop\.NetCore\Hotel.API\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll

@@ -31,9 +31,14 @@ namespace Hotel.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<HotelContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("HotelConnection")));
-
+            services.AddCors();
             services.AddControllers()
                     .AddNewtonsoftJson(s => s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
+
+            var emailConfig = Configuration
+                .GetSection("EmailConfiguration")
+                .Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -42,6 +47,7 @@ namespace Hotel.API
             services.AddScoped<IRoom, RoomRepo>();
             services.AddScoped<IRoomImage, RoomImageRepo>();
             services.AddScoped<IRoomFeature, RoomFeatureRepo>();
+            services.AddScoped<IEmailSender, EmailSenderRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,7 +58,9 @@ namespace Hotel.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 
