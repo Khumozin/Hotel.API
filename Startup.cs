@@ -39,6 +39,7 @@ namespace Hotel.API
 
             services.AddScoped<ISystemConfig, SystemConfigRepo>();
             services.AddScoped<IHotelFeature, HotelFeatureRepo>();
+            services.AddScoped<IRoom, RoomRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
