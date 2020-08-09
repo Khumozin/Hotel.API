@@ -35,11 +35,6 @@ namespace Hotel.API
             services.AddControllers()
                     .AddNewtonsoftJson(s => s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
 
-            var emailConfig = Configuration
-                .GetSection("EmailConfiguration")
-                .Get<EmailConfiguration>();
-            services.AddSingleton(emailConfig);
-
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<ISystemConfig, SystemConfigRepo>();
@@ -47,7 +42,6 @@ namespace Hotel.API
             services.AddScoped<IRoom, RoomRepo>();
             services.AddScoped<IRoomImage, RoomImageRepo>();
             services.AddScoped<IRoomFeature, RoomFeatureRepo>();
-            services.AddScoped<IEmailSender, EmailSenderRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
