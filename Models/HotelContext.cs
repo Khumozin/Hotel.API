@@ -14,5 +14,6 @@ namespace Hotel.API.Models
         public DbSet<Room> Room { get; set; }
         public DbSet<RoomImage> RoomImage { get; set; }
         public DbSet<RoomFeature> RoomFeature { get; set; }
+        public DbSet<Email> Email { get; set; }
     }
 }
